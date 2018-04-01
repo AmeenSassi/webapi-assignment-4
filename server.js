@@ -187,10 +187,9 @@ router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, functi
         res.json({success: false, msg: 'Please pass reviewer, review, stars.'});
         }
         else {
-            var decoded = req.headers.Authorization, decoded;
             var reviewNew = new Review();
             movieNew.Id = req.params.movieId;
-            movieNew.Reviewer = decoded.payload.username;
+            movieNew.Reviewer = authJwtController.jwt.username;
             movieNew.Review = req.body.Review;
             movieNew.Stars = req.body.Stars;
             // save the Review
