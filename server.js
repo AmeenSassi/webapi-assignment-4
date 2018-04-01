@@ -124,21 +124,20 @@ router.route('/movies').post(authJwtController.isAuthenticated, function (req, r
 router.route('/movies').get(authJwtController.isAuthenticated, function (req, res) {
     var query = req.query.reviews;
     var Return = new Object();
-    Movie.find(function (err, movies) {
+    Return.movie = Movie.find(function (err, movies) {
         if (err) res.send(err);
         // return the movies
-        //Return.movies = movies;
-        res.json(movies);
+        return movies;
     });
-    /*if (query == 'true'){
-        Review.find(function (err, reviews) {
+    if (query == 'true'){
+        Return.reviews = Review.find(function (err, reviews) {
             if (err) res.send(err);
             // return the Reviews
-        Return.reviews = reviews;
+            return reviews;
         });
     }
-    //var response = JSON.stringify(Return);
-    res.json(Return); */
+    var response = JSON.stringify(Return);
+    res.send(response);
 });
 
 router.route('/movies/:movieId').put(authJwtController.isAuthenticated, function (req, res) {
@@ -166,23 +165,23 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
     var query = req.query.reviews;
     var id = req.params.movieId;
     var Return = new Object();
-    Movie.findById(id, function(err, movie) {
+    Return.movie = Movie.findById(id, function(err, movie) {
             if (err) res.send(err);
 
             var movieJson = JSON.stringify(movie);
             // return that movie
-            res.json(movie);
-            //Return.movie = movie;
+            return movie;
         });
-    /*if (query == 'true'){
-         Review.findById(id, function (err, reviews) {
-            if (err) res.send(err);
-            // return the Reviews
-            Return.reviews = reviews;
-        });
+
+    if (query == 'true'){
+    Return.reviews = Review.findById(id, function (err, reviews) {
+                        if (err) res.send(err);
+                         // return the Reviews
+                        return reviews;
+                    });
     }
-    //var response = JSON.stringify(Return);
-    res.json(Return); */
+    var response = JSON.stringify(Return);
+    res.send(response);
     });
 
 router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, function (req, res) {
@@ -197,7 +196,7 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
 router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
     var reviewNew = new Review();
     reviewNew.Id = req.params.movieId;
-    reviewNew.Reviewer = authJwtController.username;
+    reviewNew.Reviewer = req.params.Reviewer;
     reviewNew.Review = req.body.Review;
     reviewNew.Stars = req.body.Stars;
     // save the Review
