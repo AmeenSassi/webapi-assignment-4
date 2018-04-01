@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var authJwtController = require('./auth_jwt');
 var User = require('./Users');
 var Movie = require('./Movies');
+var Review = requre('.Reviews');
 var jwt = require('jsonwebtoken');
 
 var app = express();
@@ -172,15 +173,15 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
 router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
     Movie.findById(id, function(err, movie) {
         if (err) res.send(err);
-        if (!req.body.Reviewer || !req.body.Review || !req.body.Stars) {
+        if (!req.body.Review || !req.body.Stars) {
         res.json({success: false, msg: 'Please pass reviewer, review, stars.'});
         }
         else {
             var reviewNew = new Review();
-            movieNew.Id = req.params.movieId;
-            movieNew.Reviewer = authJwtController.jwtFromRequest;
-            movieNew.Review = req.body.Review;
-            movieNew.Stars = req.body.Stars;
+            reviewNew.Id = req.params.movieId;
+            reviewNew.Reviewer = authJwtController.jwtFromRequest;
+            reviewNew.Review = req.body.Review;
+            reviewNew.Stars = req.body.Stars;
             // save the Review
             reviewNew.save(function() {
                 res.json({ message: 'Review added!' });
