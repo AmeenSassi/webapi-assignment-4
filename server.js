@@ -180,25 +180,5 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
     });
 });
 
-router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
-    Movie.findById(id, function(err, movie) {
-        if (err) res.send(err);
-        if (!req.body.Reviewer || !req.body.Review || !req.body.Stars) {
-        res.json({success: false, msg: 'Please pass reviewer, review, stars.'});
-        }
-        else {
-            var reviewNew = new Review();
-            movieNew.Id = req.params.movieId;
-            movieNew.Reviewer = authJwtController.jwt.username;
-            movieNew.Review = req.body.Review;
-            movieNew.Stars = req.body.Stars;
-            // save the Review
-            reviewNew.save(function() {
-                res.json({ message: 'Review added!' });
-            });
-        }
-    });
-});
-
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
