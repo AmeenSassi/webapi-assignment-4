@@ -197,7 +197,7 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
 router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
     var reviewNew = new Review();
     reviewNew.Id = req.params.movieId;
-    reviewNew.Reviewer = authJwtController.jwtFromRequest;
+    reviewNew.Reviewer = authJwtController;
     reviewNew.Review = req.body.Review;
     reviewNew.Stars = req.body.Stars;
     // save the Review
