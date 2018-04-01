@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var authJwtController = require('./auth_jwt');
 var User = require('./Users');
 var Movie = require('./Movies');
+var Review = require('/Reviews');
 var jwt = require('jsonwebtoken');
 
 var app = express();
@@ -146,6 +147,7 @@ router.route('/movies/:movieId').put(authJwtController.isAuthenticated, function
             // return a message
             res.json({message: 'Movie updated!'});
         });
+    
     });
 });
 
@@ -157,8 +159,17 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
             var movieJson = JSON.stringify(movie);
             // return that movie
             res.json(movie);
+        
+        Review.find(function(review) {
+            if (review.title == id){
+                var reviewJson = JSON.stringify(review);
+                // return that review
+                res.json(review);
+            }
+
         });
     });
+});
 
 router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, function (req, res) {
     var id = req.params.movieId;
@@ -169,6 +180,26 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
     });
 });
 
+router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
+    Movie.findById(id, function(err, movie) {
+        if (err) res.send(err);
+        if (!req.body.Reviewer || !req.body.Review || !req.body.Stars) {
+        res.json({success: false, msg: 'Please pass reviewer, review, stars.'});
+        }
+        else {
+            var decoded = req.headers.Authorization, decoded;
+            var reviewNew = new Review();
+            movieNew.Id = req.params.movieId;
+            movieNew.Reviewer = decoded.payload.username;
+            movieNew.Review = req.body.Review;
+            movieNew.Stars = req.body.Stars;
+            // save the Review
+            reviewNew.save(function() {
+                res.json({ message: 'Review added!' });
+            });
+        }
+    });
+});
 
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
