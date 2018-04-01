@@ -8,12 +8,11 @@ var dotenv = require('dotenv').config();
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
 opts.secretOrKey = process.env.SECRET_KEY;
-opts.username = null;
 
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     User.findById(jwt_payload.id, function (err, user) {
         if (user) {
-            opts.username = user;
+            opts.decoded = user.username;
             done(null, user);
         } else {
             done(null, false);
@@ -23,4 +22,4 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 
 exports.isAuthenticated = passport.authenticate('jwt', { session : false });
 exports.secret = opts.secretOrKey;
-exports.username = opts.username;
+exports.username = opts.decoded;
