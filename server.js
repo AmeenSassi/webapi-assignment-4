@@ -136,8 +136,8 @@ router.route('/movies').get(authJwtController.isAuthenticated, function (req, re
         Return.reviews = reviews;
         });
     }
-    var response = JSON.stringify(Return);
-    res.send(response); 
+    //var response = JSON.stringify(Return);
+    res.json(Return); 
 });
 
 router.route('/movies/:movieId').put(authJwtController.isAuthenticated, function (req, res) {
@@ -179,8 +179,8 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
             Return.reviews = reviews;
         });
     }
-    var response = JSON.stringify(Return);
-    res.send(response); 
+    //var response = JSON.stringify(Return);
+    res.json(Return); 
     });
 
 router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, function (req, res) {
