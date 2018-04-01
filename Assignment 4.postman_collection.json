@@ -1,0 +1,358 @@
+{
+	"info": {
+		"name": "Assignment 4",
+		"_postman_id": "33956c12-e1ca-154b-fa92-89d1d7aa82e6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Movies/Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYzA5MGMxMGRlMjRmMDAwNGYyODM0NSIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjI1Njk2NDB9.KbXvf6iQsIuJIYzHFuhZyOulQnus1zH5jcUNzYAat2s"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"The Other Juys\",\n\t\"year\": 2012,\n\t\"genre\": \"Action\",\n\t\"actors\": [\n\t\t{\n\t\t\t\"actorname\": \"Jake\",\n\t\t\t\"charactername\": \"Josh\"\n\t\t},\n\t\t\n\t\t{\n\t\t\t\"actorname\": \"John\",\n\t\t\t\"charactername\": \"Jones\"\n\t\t},\n\t\t\n\t\t{\n\t\t\t\"actorname\": \"Jim\",\n\t\t\t\"charactername\": \"Jimothy\"\n\t\t}\n\t]\n}"
+				},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Reviews/Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYzA5MGMxMGRlMjRmMDAwNGYyODM0NSIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjI1Njk2NDB9.KbXvf6iQsIuJIYzHFuhZyOulQnus1zH5jcUNzYAat2s"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Reviewer\": \"neemaman\",\n\t\"Review\": \"Why did I waste so much time watching this\",\n\t\"Stars\": \"1 Star\"\n}"
+				},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/reviews/5ac09493c2989c0004053f4f",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"reviews",
+						"5ac09493c2989c0004053f4f"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Movies/Get with id AND reviews=true",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYzA5MGMxMGRlMjRmMDAwNGYyODM0NSIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjI1Njk2NDB9.KbXvf6iQsIuJIYzHFuhZyOulQnus1zH5jcUNzYAat2s"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/movies/5ac09493c2989c0004053f4f/?reviews=true",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"5ac09493c2989c0004053f4f",
+						""
+					],
+					"query": [
+						{
+							"key": "reviews",
+							"value": "true",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Movies/Get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYzA5MGMxMGRlMjRmMDAwNGYyODM0NSIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjI1Njk2NDB9.KbXvf6iQsIuJIYzHFuhZyOulQnus1zH5jcUNzYAat2s"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/movies?reviews=true",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					],
+					"query": [
+						{
+							"key": "reviews",
+							"value": "true",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Movies/Get with id AND reviews=false",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYzA5MGMxMGRlMjRmMDAwNGYyODM0NSIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjI1Njk2NDB9.KbXvf6iQsIuJIYzHFuhZyOulQnus1zH5jcUNzYAat2s"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "review",
+						"value": "true",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/movies/5ac09493c2989c0004053f4f/?reviews=false",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"5ac09493c2989c0004053f4f",
+						""
+					],
+					"query": [
+						{
+							"key": "reviews",
+							"value": "false",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Movies/Put",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYTllZDliNjYxNDBiMmFhNDEwNmMyMCIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjE1NzYwNTd9.GByuWVJ9n0YWtwuGgExwkXVx9wNX22Ee-Gf6EfIFLTE"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"The Great Amin-Man\",\n\t\"year\": 2001,\n\t\"genre\": \"Comedy\",\n\t\"actors\": [\n\t\t\n\t\t{\n\t\t\t\"actorname\": \"Ameeno-boi\",\n\t\t\t\"charactername\": \"Amin-Man\"\n\t\t}, \n\t\t\n\t\t{\n\t\t\t\"actorname\": \"Neema\",\n\t\t\t\"charactername\": \"Nima-Man\"\n\t\t},\n\t\t\n\t\t{\n\t\t\t\"actorname\": \"Samson\",\n\t\t\t\"charactername\": \"Simson-Man\"\n\t\t}\n\t\t]\n} "
+				},
+				"url": {
+					"raw": "https://web-assignment-3.herokuapp.com/movies/5ab1746dfc11fb0004def7a5",
+					"protocol": "https",
+					"host": [
+						"web-assignment-3",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"5ab1746dfc11fb0004def7a5"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Movies/Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYTllZDliNjYxNDBiMmFhNDEwNmMyMCIsInVzZXJuYW1lIjoibmVlbWFtYW4iLCJpYXQiOjE1MjE1NzYwNTd9.GByuWVJ9n0YWtwuGgExwkXVx9wNX22Ee-Gf6EfIFLTE"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://web-assignment-3.herokuapp.com/movies/5ab17277fc11fb0004def7a1",
+					"protocol": "https",
+					"host": [
+						"web-assignment-3",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"5ab17277fc11fb0004def7a1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User/Signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Neema Issas\",\n\t\"username\": \"neemaman\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/signin",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"signin"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User/Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Neema Issas\",\n\t\"username\": \"neemaman\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "https://web-api-assignment-4.herokuapp.com/signup",
+					"protocol": "https",
+					"host": [
+						"web-api-assignment-4",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"signup"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User/SignupLocal",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Neema Issas\",\n\t\"username\": \"neemaman\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
