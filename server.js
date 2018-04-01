@@ -123,21 +123,22 @@ router.route('/movies').post(authJwtController.isAuthenticated, function (req, r
 
 router.route('/movies').get(authJwtController.isAuthenticated, function (req, res) {
     var query = req.query.reviews;
-    var Return = new Object();
-    Return.movie = Movie.find(function (err, movies) {
+    var movie = Movie.find(function (err, movies) {
         if (err) res.send(err);
         // return the movies
         return movies;
     });
     if (query == 'true'){
-        Return.reviews = Review.find(function (err, reviews) {
+    var reviews = Review.find(function (err, reviews) {
             if (err) res.send(err);
             // return the Reviews
             return reviews;
         });
+        res.json({movies: movie, reviews: reviews});
     }
-    var response = JSON.stringify(Return);
-    res.send(response);
+    else {
+        res.json(movie);
+    }
 });
 
 router.route('/movies/:movieId').put(authJwtController.isAuthenticated, function (req, res) {
@@ -165,7 +166,7 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
     var query = req.query.reviews;
     var id = req.params.movieId;
     var Return = new Object();
-    Return.movie = Movie.findById(id, function(err, movie) {
+    var movie = Movie.findById(id, function(err, movie) {
             if (err) res.send(err);
 
             var movieJson = JSON.stringify(movie);
@@ -174,14 +175,16 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
         });
 
     if (query == 'true'){
-    Return.reviews = Review.findById(id, function (err, reviews) {
+        var reviews = Review.findById(id, function (err, reviews) {
                         if (err) res.send(err);
                          // return the Reviews
                         return reviews;
-                    });
+        });
+        res.json({movie: movie, reviews: reviews});
     }
-    var response = JSON.stringify(Return);
-    res.send(response);
+    else {
+        res.json(movie);
+    }
     });
 
 router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, function (req, res) {
