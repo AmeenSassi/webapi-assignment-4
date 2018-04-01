@@ -174,7 +174,7 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
             res.json(movie);
             //Return.movie = movie;
         });
-    if (query == 'true'){
+    /*if (query == 'true'){
          Review.findById(id, function (err, reviews) {
             if (err) res.send(err);
             // return the Reviews
@@ -182,7 +182,7 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
         });
     }
     //var response = JSON.stringify(Return);
-    res.json(Return); 
+    res.json(Return); */
     });
 
 router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, function (req, res) {
@@ -201,7 +201,7 @@ router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, functi
     reviewNew.Review = req.body.Review;
     reviewNew.Stars = req.body.Stars;
     // save the Review
-    reviewNew.save(function() {
+    reviewNew.save(function(err) {
         if (err) {
             // duplicate entry
             if (err.code == 11000)
