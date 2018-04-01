@@ -203,7 +203,7 @@ router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function
     else {
         Movie.findById(id, function(err, movie) {
             if (err) res.send(err);
-            res.json(movies);
+            res.json(movie);
         });
     }     
 });
