@@ -202,6 +202,13 @@ router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, functi
     reviewNew.Stars = req.body.Stars;
     // save the Review
     reviewNew.save(function() {
+        if (err) {
+            // duplicate entry
+            if (err.code == 11000)
+                return res.json({ success: false, message: 'That Review already exists in this database. '});
+            else
+                return res.send(err);
+        }
         res.json({ message: 'Review added!' });
     });
 });
