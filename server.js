@@ -196,8 +196,21 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
 
 router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
     var reviewNew = new Review();
+    var token = req.headers['Authorization'];
+    if (token) {
+        jwt.verify(token, authJwtController.secret, function(err, decoded) {
+            if (err) {
+                return res.status(403).send({
+                    success: false,
+                    message: 'Failed to authenticate token. '
+                });
+            } else {
+                req.decoded = decoded;
+            }
+        })
+    }
     reviewNew.Id = req.params.movieId;
-    reviewNew.Reviewer = authJwtController;
+    reviewNew.Reviewer = req.decoded.username;
     reviewNew.Review = req.body.Review;
     reviewNew.Stars = req.body.Stars;
     // save the Review
