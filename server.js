@@ -123,21 +123,34 @@ router.route('/movies').post(authJwtController.isAuthenticated, function (req, r
 
 router.route('/movies').get(authJwtController.isAuthenticated, function (req, res) {
     var query = req.query.reviews;
-    var movie = Movie.find(function (err, movies) {
-        if (err) res.send(err);
-        // return the movies
-        return movies;
-    });
     if (query == 'true'){
-    var reviews = Review.find(function (err, reviews) {
+        Movie.find(function (err, movies) {
             if (err) res.send(err);
-            // return the Reviews
-            return reviews;
+            // return the movies
+            if (movies) {
+                Review.find(function (err, reviews) {
+                    if (err) res.send(err);
+                    // return the Review
+                    if(reviews){
+                        var Return = new Object();
+                        Return.movies = movies;
+                        Return.reviews = reviews;
+                        res.send(Return);
+                    }
+                    else{
+                        var Return = new Object();
+                        Return.movies = movies;
+                        res.send(Return);
+                    }
+                });
+            }
         });
-        res.json({movies: movie, reviews: reviews});
     }
     else {
-        res.json(movie);
+        Movie.find(function (err, movies) {
+            if (err) res.send(err);
+            res.json(movies);
+        });
     }
 });
 
@@ -165,27 +178,35 @@ router.route('/movies/:movieId').put(authJwtController.isAuthenticated, function
 router.route('/movies/:movieId').get(authJwtController.isAuthenticated, function (req, res) {
     var query = req.query.reviews;
     var id = req.params.movieId;
-    var Return = new Object();
-    var movie = Movie.findById(id, function(err, movie) {
+    if(query == 'true'){
+    Movie.findById(id, function(err, movie) {
             if (err) res.send(err);
-
-            var movieJson = JSON.stringify(movie);
-            // return that movie
-            return movie;
+            if (movie){
+                Review.find({'Id': id},function (err, reviews) {
+                    if (err) res.send(err);
+                    // return the Review
+                    if(reviews){
+                        var Return = new Object();
+                        Return.movies = movie;
+                        Return.reviews = reviews;
+                        res.send(Return);
+                    }
+                    else{
+                        var Return = new Object();
+                        Return.movies = movie;
+                        res.send(Return);
+                    }
+                });
+            }
         });
-
-    if (query == 'true'){
-        var reviews = Review.findById(id, function (err, reviews) {
-                        if (err) res.send(err);
-                         // return the Reviews
-                        return reviews;
-        });
-        res.json({movie: movie, reviews: reviews});
     }
     else {
-        res.json(movie);
-    }
-    });
+        Movie.findById(id, function(err, movie) {
+            if (err) res.send(err);
+            res.json(movies);
+        });
+    }     
+});
 
 router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, function (req, res) {
     var id = req.params.movieId;
@@ -199,7 +220,7 @@ router.route('/movies/:movieId').delete(authJwtController.isAuthenticated, funct
 router.route('/reviews/:movieId').post(authJwtController.isAuthenticated, function (req, res) {
     var reviewNew = new Review();
     reviewNew.Id = req.params.movieId;
-    reviewNew.Reviewer = req.params.Reviewer;
+    reviewNew.Reviewer = req.body.Reviewer;
     reviewNew.Review = req.body.Review;
     reviewNew.Stars = req.body.Stars;
     // save the Review
